@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TodoList} from "../../model/TodoList";
+import {Task} from "../../model/Task";
 
 @Component({
   selector: 'app-todo-list',
@@ -15,7 +16,7 @@ export class TodoListComponent implements OnInit {
     tasks: [{
       id: 1,
       title: 'JavaScript',
-      completed: false,
+      completed: true,
     },
       {
         id: 2,
@@ -25,7 +26,7 @@ export class TodoListComponent implements OnInit {
       {
         id: 3,
         title: 'Python',
-        completed: false,
+        completed: true,
       },]
   }
 
@@ -37,4 +38,19 @@ export class TodoListComponent implements OnInit {
 
   }
 
+  toggleTaskCompleted(task: Task) {
+    let todoList = {
+      ...this.todoList,
+      tasks: this.todoList.tasks.map(t => {
+        if (task.id == t.id) {
+          return {
+            ...t, completed: !task.completed
+          }
+        }
+        return t
+      })
+    }
+
+    this.todoList = todoList
+  }
 }

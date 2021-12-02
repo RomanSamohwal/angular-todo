@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TodoList} from "../../model/TodoList";
 import {Task} from "../../model/Task";
 
@@ -8,6 +8,8 @@ import {Task} from "../../model/Task";
   styleUrls: ['./todo-list.component.css']
 })
 export class TodoListComponent implements OnInit {
+
+  title: string = ''
 
   //добавили todoList с тасками
   todoList: TodoList = {
@@ -38,8 +40,18 @@ export class TodoListComponent implements OnInit {
 
   }
 
-  toggleTaskCompleted(task: Task) {
-    let todoList = {
+  addTask(title: string): void {
+    let createdTask = <Task>{
+      id: this.todoList.tasks.length + 1,
+      title: title,
+      completed: false
+    }
+    this.todoList.tasks.push(createdTask)
+    this.title = ''
+  }
+
+  toggleTaskCompleted(task: Task): void {
+    let copyTodoList = {
       ...this.todoList,
       tasks: this.todoList.tasks.map(t => {
         if (task.id == t.id) {
@@ -51,6 +63,6 @@ export class TodoListComponent implements OnInit {
       })
     }
 
-    this.todoList = todoList
+    this.todoList = copyTodoList
   }
 }

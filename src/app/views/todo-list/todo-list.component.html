@@ -1,4 +1,6 @@
 <h4>{{todoList.title}}</h4>
+<input placeholder="название задачи" [(ngModel)]="title">
+<button (click)="addTask(title.trim())">+</button>
 <ul>
   <li *ngFor="let task of todoList.tasks">
     <input type="checkbox" [checked]="task.completed" (click)="toggleTaskCompleted(task)"/>

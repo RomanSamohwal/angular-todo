@@ -7,11 +7,28 @@ import {TodoList} from "../model/TodoList";
   styleUrls: ['./todo-list.component.css']
 })
 export class TodoListComponent implements OnInit {
-  //добавили todoList
+  //добавили todoList с тасками
   todoList: TodoList = {
     id: 1,
     title: 'Языки программирования',
-    tasks: []
+    tasks: [{
+      id: 1,
+      title: 'JavaScript',
+      completed: false,
+      date: new Date('2022-04-11'),
+    },
+      {
+        id: 2,
+        title: 'Java',
+        completed: false,
+        date: new Date('2022-05-11'),
+      },
+      {
+        id: 3,
+        title: 'Python',
+        completed: false,
+        date: new Date('2022-04-11'),
+      },]
   }
 
   constructor() {

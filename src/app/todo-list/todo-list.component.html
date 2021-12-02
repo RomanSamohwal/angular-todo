@@ -1,9 +1,9 @@
 
   <h4>{{todoList.title}}</h4>
  <ul>
-   <li>{{todoList.tasks[0].title}}</li>
-   <li>{{todoList.tasks[1].title}}</li>
-   <li>{{todoList.tasks[2].title}}</li>
+   <li *ngFor="let task of todoList.tasks">
+     <span>{{task.title}}</span>
+   </li>
  </ul>
 
 

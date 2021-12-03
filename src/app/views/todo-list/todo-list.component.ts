@@ -42,7 +42,7 @@ export class TodoListComponent implements OnInit {
 
   addTask(title: string): void {
     let createdTask = <Task>{
-      id: this.todoList.tasks.length + 1,
+      id: Math.floor(Math.random() * 1000000),
       title: title,
       completed: false
     }

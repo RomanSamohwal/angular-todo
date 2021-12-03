@@ -16,6 +16,7 @@ export class AppComponent implements OnInit{
 
   ngOnInit(): void {
     this.dataHandlerService.getAllTodoLists().subscribe(value => {
+      //вывел в консоль полученные данные
       console.log(value)
       this.todoLists = value
     })

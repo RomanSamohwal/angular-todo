@@ -50,6 +50,15 @@ export class TodoListComponent implements OnInit {
     this.title = ''
   }
 
+  deleteTask(task: Task): void {
+    let copyTodoList = {
+      ...this.todoList,
+      tasks: this.todoList.tasks.filter(t => t.id !== task.id)
+    }
+
+    this.todoList = copyTodoList
+  }
+
   toggleTaskCompleted(task: Task): void {
     let copyTodoList = {
       ...this.todoList,

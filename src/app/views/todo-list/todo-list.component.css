@@ -1,4 +1,13 @@
 .completed {
   text-decoration: line-through;
   color: #797979;
+  opacity: 0.5;
+}
+
+.error {
+  border: red 1px solid;
+}
+
+.error-message {
+  color: red;
 }

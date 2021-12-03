@@ -9,10 +9,13 @@ import {Task} from "../../model/Task";
 })
 export class TodoListComponent implements OnInit {
 
+  status: 'all' | 'active' | 'completed' = "all"
+
   errorMessage: string = ''
 
   title: string = ''
 
+  filteredTaskByStatus: TodoList | null = null
   //добавили todoList с тасками
   todoList: TodoList = {
     id: 1,
@@ -39,7 +42,8 @@ export class TodoListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.status = 'all'
+    this.filteredTaskByStatus = this.todoList
   }
 
   addTask(title: string): void {
@@ -55,6 +59,7 @@ export class TodoListComponent implements OnInit {
       completed: false
     }
     this.todoList.tasks.push(createdTask)
+    this.selectFilter()
     this.title = ''
     this.errorMessage = ''
   }
@@ -64,8 +69,8 @@ export class TodoListComponent implements OnInit {
       ...this.todoList,
       tasks: this.todoList.tasks.filter(t => t.id !== task.id)
     }
-
     this.todoList = copyTodoList
+    this.selectFilter()
   }
 
   toggleTaskCompleted(task: Task): void {
@@ -82,5 +87,43 @@ export class TodoListComponent implements OnInit {
     }
 
     this.todoList = copyTodoList
+
+    this.selectFilter()
+  }
+
+  selectFilter(): void {
+    switch (this.status) {
+      case "active":
+        this.filterActive()
+        break
+      case "completed" :
+        this.filterCompleted()
+        break
+      default:
+        this.filterAll()
+    }
+  }
+
+  filterAll(): void {
+    this.status = 'all'
+    this.filteredTaskByStatus = this.todoList
+  }
+
+  filterActive(): void {
+    this.status = 'active'
+    let copyTodoList = {
+      ...this.todoList,
+      tasks: this.todoList.tasks.filter(t => !t.completed)
+    }
+    this.filteredTaskByStatus = copyTodoList
+  }
+
+  filterCompleted(): void {
+    this.status = 'completed'
+    let copyTodoList = {
+      ...this.todoList,
+      tasks: this.todoList.tasks.filter(t => t.completed)
+    }
+    this.filteredTaskByStatus = copyTodoList
   }
 }

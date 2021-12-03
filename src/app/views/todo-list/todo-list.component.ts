@@ -9,6 +9,8 @@ import {Task} from "../../model/Task";
 })
 export class TodoListComponent implements OnInit {
 
+  errorMessage: string = ''
+
   title: string = ''
 
   //добавили todoList с тасками
@@ -41,6 +43,12 @@ export class TodoListComponent implements OnInit {
   }
 
   addTask(title: string): void {
+
+    if (title === '') {
+      this.errorMessage = 'не выбрано поле название задачи'
+      return
+    }
+
     let createdTask = <Task>{
       id: Math.floor(Math.random() * 1000000),
       title: title,
@@ -48,6 +56,7 @@ export class TodoListComponent implements OnInit {
     }
     this.todoList.tasks.push(createdTask)
     this.title = ''
+    this.errorMessage = ''
   }
 
   deleteTask(task: Task): void {

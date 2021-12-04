@@ -17,6 +17,8 @@ export class TodoListComponent implements OnInit {
 
   @Output() updateTaskEmit = new EventEmitter<{ todolist: TodoList, task: Task }>();
 
+  @Output() deleteTodolistEmit = new EventEmitter<number>()
+
   status: 'all' | 'active' | 'completed' = "all"
 
   errorMessage: string = ''
@@ -25,8 +27,8 @@ export class TodoListComponent implements OnInit {
 
   filteredTaskByStatus: TodoList | null = null
 
-  constructor() {
-
+  deleteTodolist(): void {
+    this.deleteTodolistEmit.emit(this.todoList?.id)
   }
 
   ngOnInit(): void {

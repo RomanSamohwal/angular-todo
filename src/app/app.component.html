@@ -5,7 +5,8 @@
     <app-todo-list [todoList]="todolist"
                    (addTaskEmit)="onAddTask($event)"
                    (deleteTaskEmit)=onDeleteTask($event)
-                   (updateTaskEmit)="onUpdateTask($event)">
+                   (updateTaskEmit)="onUpdateTask($event)"
+                   (deleteTodolistEmit)="onDeleteTodolist($event)">
     </app-todo-list>
   </div>
 </div>

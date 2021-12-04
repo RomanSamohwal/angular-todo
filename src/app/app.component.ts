@@ -28,6 +28,11 @@ export class AppComponent implements OnInit {
     this.title = ''
   }
 
+  onDeleteTodolist(todolistId: number): void {
+    this.dataHandlerService.deleteTodolist(todolistId)
+      .subscribe(value => this.todoLists = value)
+  }
+
   onAddTask(param: { todolist: TodoList, taskTitle: string }): void {
     this.dataHandlerService.addTask({todolist: param.todolist, taskTitle: param.taskTitle})
       .subscribe(value => this.todoLists = value)

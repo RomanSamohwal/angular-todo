@@ -2,14 +2,14 @@
   margin: 10px;
 }
 
+h5 {
+  display: inline-block;
+}
+
 .completed {
   text-decoration: line-through;
   color: #797979;
   opacity: 0.5;
-}
-
-input.error {
-  border: 1px solid red !important;
 }
 
 .error-message {

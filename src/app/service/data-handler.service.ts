@@ -29,6 +29,11 @@ export class DataHandlerService {
     return of(TestData.todoLists)
   }
 
+  deleteTodolist(todolistId: number) {
+    TestData.todoLists = TestData.todoLists.filter(t => t.id !== todolistId)
+    return of(TestData.todoLists)
+  }
+
   addTask(param: { todolist: TodoList, taskTitle: string }): Observable<TodoList[]> {
 
     let foundTodoIndex = TestData.todoLists.findIndex(t => t.id === param.todolist.id)

@@ -1,5 +1,5 @@
 <div class="container" *ngFor="let todolist of todoLists">
-  <app-todo-list [todoList]="todolist"></app-todo-list>
+  <app-todo-list [todoList]="todolist" (addTaskEmit)="onAddTask($event)"></app-todo-list>
 </div>
 
 

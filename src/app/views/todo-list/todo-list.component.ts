@@ -10,6 +10,8 @@ import {Task} from "../../model/Task";
 export class TodoListComponent implements OnInit {
 
   @Input() todoList: TodoList | null = null;
+  //функция декоратора, помечающая свойство как способ передачи данных от дочернего к родительскому
+  @Output() addTaskEmit = new EventEmitter<{ todolist: TodoList, taskTitle: string }>();
 
   status: 'all' | 'active' | 'completed' = "all"
 
@@ -18,26 +20,6 @@ export class TodoListComponent implements OnInit {
   title: string = ''
 
   filteredTaskByStatus: TodoList | null = null
-  //добавили todoList с тасками
-  // todoList: TodoList = {
-  //   id: 1,
-  //   title: 'Языки программирования',
-  //   tasks: [{
-  //     id: 1,
-  //     title: 'JavaScript',
-  //     completed: true,
-  //   },
-  //     {
-  //       id: 2,
-  //       title: 'Java',
-  //       completed: false,
-  //     },
-  //     {
-  //       id: 3,
-  //       title: 'Python',
-  //       completed: true,
-  //     },]
-  // }
 
   constructor() {
 
@@ -48,6 +30,7 @@ export class TodoListComponent implements OnInit {
     this.filteredTaskByStatus = this.todoList
   }
 
+  //метод для добавления Task
   addTask(title: string): void {
 
     if (title === '') {
@@ -55,12 +38,8 @@ export class TodoListComponent implements OnInit {
       return
     }
 
-    let createdTask = <Task>{
-      id: Math.floor(Math.random() * 1000000),
-      title: title,
-      completed: false
-    }
-    this.todoList?.tasks.push(createdTask)
+    if (this.todoList) this.addTaskEmit.emit({todolist: this.todoList, taskTitle: title})
+
     this.selectFilter()
     this.title = ''
     this.errorMessage = ''

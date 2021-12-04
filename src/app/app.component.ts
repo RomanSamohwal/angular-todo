@@ -7,12 +7,19 @@ import {TodoList} from "./model/TodoList";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
 
   todoLists: TodoList[] | null = null
 
   constructor(private dataHandlerService: DataHandlerService) {
-   }
+  }
+
+  onAddTask(param: { todolist: TodoList, taskTitle: string }) {
+    this.dataHandlerService.addTask({todolist: param.todolist, taskTitle: param.taskTitle})
+      .subscribe(value => {
+        this.todoLists = value
+      })
+  }
 
   ngOnInit(): void {
     this.dataHandlerService.getAllTodoLists().subscribe(value => {

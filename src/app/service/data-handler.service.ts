@@ -16,6 +16,16 @@ export class DataHandlerService {
     return of(TestData.todoLists)
   }
 
+  updateTodolist(todolist: TodoList): Observable<TodoList[]> {
+    let foundTodolistIndex = TestData.todoLists.findIndex(t => t.id === todolist.id)
+
+    if (foundTodolistIndex !== -1) {
+      TestData.todoLists.splice(foundTodolistIndex, 1, todolist)
+    }
+
+    return of(TestData.todoLists)
+  }
+
   addTodolist(title: string): Observable<TodoList[]> {
 
     let createdTodolist: TodoList = {

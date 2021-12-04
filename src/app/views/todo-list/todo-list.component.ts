@@ -19,6 +19,10 @@ export class TodoListComponent implements OnInit {
 
   @Output() deleteTodolistEmit = new EventEmitter<number>()
 
+  @Output() updateTodolist = new EventEmitter<TodoList>()
+
+  isEdit: boolean = false
+
   status: 'all' | 'active' | 'completed' = "all"
 
   errorMessage: string = ''
@@ -27,13 +31,23 @@ export class TodoListComponent implements OnInit {
 
   filteredTaskByStatus: TodoList | null = null
 
-  deleteTodolist(): void {
-    this.deleteTodolistEmit.emit(this.todoList?.id)
-  }
 
   ngOnInit(): void {
     this.status = 'all'
     this.filteredTaskByStatus = this.todoList
+  }
+
+  toggleIsEditTitle(): void {
+    this.isEdit = !this.isEdit
+  }
+
+  editTodolistTitle(title: string): void {
+    if(this.todoList) this.updateTodolist.emit({...this.todoList, title: title})
+    this.toggleIsEditTitle()
+  }
+
+  deleteTodolist(): void {
+    this.deleteTodolistEmit.emit(this.todoList?.id)
   }
 
   //метод для добавления Task

@@ -1,5 +1,8 @@
 <div class="todolist-container">
-  <h5>{{todoList?.title | uppercase}}</h5>
+  <h5 *ngIf="!isEdit" (dblclick)="toggleIsEditTitle()">{{todoList?.title | uppercase}}</h5>
+  <input *ngIf="isEdit" #title type="text"
+         (blur)="editTodolistTitle(title.value)"
+         [value]="todoList?.title"/>
   <button (click)="deleteTodolist()">x</button>
   <div>
     <input placeholder="название задачи" [(ngModel)]="title">

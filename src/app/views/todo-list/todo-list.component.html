@@ -1,6 +1,7 @@
 <div class="todolist-container">
   <h5 *ngIf="!isEdit" (dblclick)="toggleIsEditTitle()">{{todoList?.title | uppercase}}</h5>
   <input *ngIf="isEdit" #title type="text"
+         autofocus
          (blur)="editTodolistTitle(title.value)"
          [value]="todoList?.title"/>
   <button (click)="deleteTodolist()">x</button>

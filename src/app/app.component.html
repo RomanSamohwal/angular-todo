@@ -1,4 +1,5 @@
-<input type="text"> <button>+</button>
+<input type="text" placeholder="название задачи" [(ngModel)]="title">
+<button (click)="addTodolist()">+</button>
 <div class="container">
   <div *ngFor="let todolist of todoLists">
     <app-todo-list [todoList]="todolist"

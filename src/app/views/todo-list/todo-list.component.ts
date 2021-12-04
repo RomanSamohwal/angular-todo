@@ -85,21 +85,22 @@ export class TodoListComponent implements OnInit {
 
   filterActive(): void {
     this.status = 'active'
-    let copyTodoList = {
-      ...this.todoList,
-      tasks: this.todoList?.tasks.filter(t => !t.completed)
+    if (this.todoList) {
+      this.filteredTaskByStatus = {
+        ...this.todoList,
+        tasks: this.todoList?.tasks.filter(t => !t.completed)
+      }
     }
-    // @ts-ignore
-    this.filteredTaskByStatus = copyTodoList
   }
 
   filterCompleted(): void {
     this.status = 'completed'
-    let copyTodoList = {
-      ...this.todoList,
-      tasks: this.todoList?.tasks.filter(t => t.completed)
+
+    if (this.todoList) {
+      this.filteredTaskByStatus = {
+        ...this.todoList,
+        tasks: this.todoList?.tasks.filter(t => t.completed)
+      }
     }
-    // @ts-ignore
-    this.filteredTaskByStatus = copyTodoList
   }
 }

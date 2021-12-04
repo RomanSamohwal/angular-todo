@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {TodoList} from "../../model/TodoList";
 import {Task} from "../../model/Task";
 
@@ -9,6 +9,8 @@ import {Task} from "../../model/Task";
 })
 export class TodoListComponent implements OnInit {
 
+  @Input() todoList: TodoList | null = null;
+
   status: 'all' | 'active' | 'completed' = "all"
 
   errorMessage: string = ''
@@ -17,25 +19,25 @@ export class TodoListComponent implements OnInit {
 
   filteredTaskByStatus: TodoList | null = null
   //добавили todoList с тасками
-  todoList: TodoList = {
-    id: 1,
-    title: 'Языки программирования',
-    tasks: [{
-      id: 1,
-      title: 'JavaScript',
-      completed: true,
-    },
-      {
-        id: 2,
-        title: 'Java',
-        completed: false,
-      },
-      {
-        id: 3,
-        title: 'Python',
-        completed: true,
-      },]
-  }
+  // todoList: TodoList = {
+  //   id: 1,
+  //   title: 'Языки программирования',
+  //   tasks: [{
+  //     id: 1,
+  //     title: 'JavaScript',
+  //     completed: true,
+  //   },
+  //     {
+  //       id: 2,
+  //       title: 'Java',
+  //       completed: false,
+  //     },
+  //     {
+  //       id: 3,
+  //       title: 'Python',
+  //       completed: true,
+  //     },]
+  // }
 
   constructor() {
 
@@ -58,7 +60,7 @@ export class TodoListComponent implements OnInit {
       title: title,
       completed: false
     }
-    this.todoList.tasks.push(createdTask)
+    this.todoList?.tasks.push(createdTask)
     this.selectFilter()
     this.title = ''
     this.errorMessage = ''
@@ -67,8 +69,9 @@ export class TodoListComponent implements OnInit {
   deleteTask(task: Task): void {
     let copyTodoList = {
       ...this.todoList,
-      tasks: this.todoList.tasks.filter(t => t.id !== task.id)
+      tasks: this.todoList?.tasks.filter(t => t.id !== task.id)
     }
+    // @ts-ignore
     this.todoList = copyTodoList
     this.selectFilter()
   }
@@ -76,6 +79,7 @@ export class TodoListComponent implements OnInit {
   toggleTaskCompleted(task: Task): void {
     let copyTodoList = {
       ...this.todoList,
+      // @ts-ignore
       tasks: this.todoList.tasks.map(t => {
         if (task.id == t.id) {
           return {
@@ -85,7 +89,7 @@ export class TodoListComponent implements OnInit {
         return t
       })
     }
-
+    // @ts-ignore
     this.todoList = copyTodoList
 
     this.selectFilter()
@@ -113,8 +117,9 @@ export class TodoListComponent implements OnInit {
     this.status = 'active'
     let copyTodoList = {
       ...this.todoList,
-      tasks: this.todoList.tasks.filter(t => !t.completed)
+      tasks: this.todoList?.tasks.filter(t => !t.completed)
     }
+    // @ts-ignore
     this.filteredTaskByStatus = copyTodoList
   }
 
@@ -122,8 +127,9 @@ export class TodoListComponent implements OnInit {
     this.status = 'completed'
     let copyTodoList = {
       ...this.todoList,
-      tasks: this.todoList.tasks.filter(t => t.completed)
+      tasks: this.todoList?.tasks.filter(t => t.completed)
     }
+    // @ts-ignore
     this.filteredTaskByStatus = copyTodoList
   }
 }

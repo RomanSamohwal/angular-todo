@@ -1,4 +1,4 @@
-<h5>{{todoList.title | uppercase}}</h5>
+<h5>{{todoList?.title | uppercase}}</h5>
 <div>
   <input placeholder="название задачи" [(ngModel)]="title">
   <button (click)="addTask(title.trim())">+</button>

@@ -1,5 +1,5 @@
-<div *ngFor = "let todolist of todoLists">
-  <app-todo-list></app-todo-list>
+<div class="container" *ngFor="let todolist of todoLists">
+  <app-todo-list [todoList]="todolist"></app-todo-list>
 </div>
 
 

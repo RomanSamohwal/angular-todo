@@ -14,11 +14,15 @@ export class AppComponent implements OnInit {
   constructor(private dataHandlerService: DataHandlerService) {
   }
 
-  onAddTask(param: { todolist: TodoList, taskTitle: string }) {
+  onAddTask(param: { todolist: TodoList, taskTitle: string }): void {
     this.dataHandlerService.addTask({todolist: param.todolist, taskTitle: param.taskTitle})
       .subscribe(value => {
         this.todoLists = value
       })
+  }
+
+  onDeleteTask(param: {todolist: TodoList, taskId: number}): void {
+     this.dataHandlerService.deleteTask({todolist: param.todolist, taskId: param.taskId})
   }
 
   ngOnInit(): void {

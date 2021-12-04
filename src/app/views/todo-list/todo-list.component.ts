@@ -13,6 +13,8 @@ export class TodoListComponent implements OnInit {
   //функция декоратора, помечающая свойство как способ передачи данных от дочернего к родительскому
   @Output() addTaskEmit = new EventEmitter<{ todolist: TodoList, taskTitle: string }>();
 
+  @Output() deleteTaskEmit = new EventEmitter<{ todolist: TodoList, taskId: number }>();
+
   status: 'all' | 'active' | 'completed' = "all"
 
   errorMessage: string = ''
@@ -46,12 +48,7 @@ export class TodoListComponent implements OnInit {
   }
 
   deleteTask(task: Task): void {
-    let copyTodoList = {
-      ...this.todoList,
-      tasks: this.todoList?.tasks.filter(t => t.id !== task.id)
-    }
-    // @ts-ignore
-    this.todoList = copyTodoList
+    if (this.todoList) this.deleteTaskEmit.emit({todolist: this.todoList, taskId: task.id})
     this.selectFilter()
   }
 

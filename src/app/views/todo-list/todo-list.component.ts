@@ -15,6 +15,8 @@ export class TodoListComponent implements OnInit {
 
   @Output() deleteTaskEmit = new EventEmitter<{ todolist: TodoList, taskId: number }>();
 
+  @Output() updateTaskEmit = new EventEmitter<{ todolist: TodoList, task: Task }>();
+
   status: 'all' | 'active' | 'completed' = "all"
 
   errorMessage: string = ''
@@ -53,21 +55,13 @@ export class TodoListComponent implements OnInit {
   }
 
   toggleTaskCompleted(task: Task): void {
-    let copyTodoList = {
-      ...this.todoList,
-      // @ts-ignore
-      tasks: this.todoList.tasks.map(t => {
-        if (task.id == t.id) {
-          return {
-            ...t, completed: !task.completed
-          }
-        }
-        return t
-      })
-    }
-    // @ts-ignore
-    this.todoList = copyTodoList
 
+    let updatedTask: Task = {
+      ...task,
+      completed: !task.completed
+    }
+
+    if (this.todoList) this.updateTaskEmit.emit({todolist: this.todoList, task: updatedTask})
     this.selectFilter()
   }
 

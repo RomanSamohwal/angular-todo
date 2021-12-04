@@ -17,6 +17,7 @@ export class DataHandlerService {
   }
 
   addTask(param: { todolist: TodoList, taskTitle: string }): Observable<TodoList[]> {
+
     let foundTodoIndex = TestData.todoLists.findIndex(t => t.id === param.todolist.id)
 
     if (foundTodoIndex !== -1) {
@@ -33,6 +34,7 @@ export class DataHandlerService {
   }
 
   deleteTask(param: { todolist: TodoList, taskId: number }): Observable<TodoList[]> {
+
     let foundTodoIndex = TestData.todoLists.findIndex(t => t.id === param.todolist.id)
 
     if (foundTodoIndex !== -1) {
@@ -41,6 +43,18 @@ export class DataHandlerService {
       TestData.todoLists.splice(foundTodoIndex, 1, param.todolist)
     }
 
+    return of(TestData.todoLists)
+  }
+
+  updateSelectedTask(param: { todolist: TodoList, task: Task }): Observable<TodoList[]> {
+
+    let foundTodoIndex = TestData.todoLists.findIndex(t => t.id === param.todolist.id)
+
+    if (foundTodoIndex !== -1) {
+      let foundTaskIndex = param.todolist.tasks.findIndex(t => t.id === param.task.id)
+      param.todolist.tasks.splice(foundTaskIndex, 1, param.task)
+      TestData.todoLists.splice(foundTodoIndex, 1, param.todolist)
+    }
     return of(TestData.todoLists)
   }
 }

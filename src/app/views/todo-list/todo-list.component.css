@@ -1,3 +1,7 @@
+.todolist-container {
+  margin: 10px;
+}
+
 .completed {
   text-decoration: line-through;
   color: #797979;
@@ -5,7 +9,7 @@
 }
 
 input.error {
-  border: 1px solid red!important;
+  border: 1px solid red !important;
 }
 
 .error-message {

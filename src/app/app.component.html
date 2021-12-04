@@ -1,8 +1,12 @@
-<div class="container" *ngFor="let todolist of todoLists">
-  <app-todo-list [todoList]="todolist"
-                 (addTaskEmit)="onAddTask($event)"
-                 (deleteTaskEmit)=onDeleteTask($event)>
-  </app-todo-list>
+<input type="text"> <button>+</button>
+<div class="container">
+  <div *ngFor="let todolist of todoLists">
+    <app-todo-list [todoList]="todolist"
+                   (addTaskEmit)="onAddTask($event)"
+                   (deleteTaskEmit)=onDeleteTask($event)
+                   (updateTaskEmit)="onUpdateTask($event)">
+    </app-todo-list>
+  </div>
 </div>
 
 

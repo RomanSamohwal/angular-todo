@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, DoCheck} from '@angular/core';
 import {DataHandlerService} from "./service/data-handler.service";
 import {TodoList} from "./model/TodoList";
 import {Task} from "./model/Task";
@@ -8,23 +8,31 @@ import {Task} from "./model/Task";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements DoCheck {
 
-  title: string = ''
+  title: string = '';
+  isEmptyTitle: boolean = false
 
+  label: string = 'todolist title'
   todoLists: TodoList[] | null = null
 
   constructor(private dataHandlerService: DataHandlerService) {
   }
 
+  ngDoCheck() {
+    if (this.title !== '') {
+      this.isEmptyTitle = false
+    }
+  }
+
   addTodolist(): void {
     if (this.title === '') {
+      this.isEmptyTitle = true
       return
     }
 
     this.dataHandlerService.addTodolist(this.title)
       .subscribe(value => this.todoLists = value)
-
     this.title = ''
   }
 

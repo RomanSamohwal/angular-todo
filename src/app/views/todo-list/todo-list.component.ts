@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, DoCheck, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {TodoList} from "../../model/TodoList";
 import {Task} from "../../model/Task";
 
@@ -7,7 +7,7 @@ import {Task} from "../../model/Task";
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.css']
 })
-export class TodoListComponent implements OnInit {
+export class TodoListComponent implements OnInit, DoCheck {
 
   @Input() todoList: TodoList | null = null;
   //функция декоратора, помечающая свойство как способ передачи данных от дочернего к родительскому
@@ -22,19 +22,26 @@ export class TodoListComponent implements OnInit {
   @Output() updateTodolist = new EventEmitter<TodoList>()
 
   isEdit: boolean = false
+  isEmptyTitle: boolean = false
 
   status: 'all' | 'active' | 'completed' = "all"
 
-  errorMessage: string = ''
+  label: string = 'task title'
 
   title: string = ''
+  isEmpty: boolean = false
 
   filteredTaskByStatus: TodoList | null = null
-
 
   ngOnInit(): void {
     this.status = 'all'
     this.filteredTaskByStatus = this.todoList
+  }
+
+  ngDoCheck(): void {
+    if (this.title !== '') {
+      this.isEmptyTitle = false
+    }
   }
 
   toggleIsEditTitle(): void {
@@ -42,7 +49,7 @@ export class TodoListComponent implements OnInit {
   }
 
   editTodolistTitle(title: string): void {
-    if(this.todoList) this.updateTodolist.emit({...this.todoList, title: title})
+    if (this.todoList) this.updateTodolist.emit({...this.todoList, title: title})
     this.toggleIsEditTitle()
   }
 
@@ -54,7 +61,7 @@ export class TodoListComponent implements OnInit {
   addTask(title: string): void {
 
     if (title === '') {
-      this.errorMessage = 'не выбрано поле название задачи'
+      this.isEmptyTitle = true
       return
     }
 
@@ -62,7 +69,7 @@ export class TodoListComponent implements OnInit {
 
     this.selectFilter()
     this.title = ''
-    this.errorMessage = ''
+    this.label = 'task title'
   }
 
   deleteTask(task: Task): void {

@@ -1,27 +1,39 @@
-<div class="todolist-container">
-  <h5 *ngIf="!isEdit" (dblclick)="toggleIsEditTitle()">{{todoList?.title | uppercase}}</h5>
-  <input *ngIf="isEdit" #title type="text"
-         autofocus
-         (blur)="editTodolistTitle(title.value)"
-         [value]="todoList?.title"/>
-  <button (click)="deleteTodolist()">x</button>
-  <div>
-    <input placeholder="название задачи" [(ngModel)]="title">
-    <button (click)="addTask(title.trim())">+</button>
+<mat-card class="card">
+  <div class="header">
+    <h4 *ngIf="!isEdit" (dblclick)="toggleIsEditTitle()">{{todoList?.title}}</h4>
+    <input *ngIf="isEdit" #title type="text"
+           matInput
+           autofocus
+           (blur)="editTodolistTitle(title.value)"
+           [value]="todoList?.title"/>
+    <button mat-mini-fab color="accent" (click)="deleteTodolist()">
+      <mat-icon>delete</mat-icon>
+    </button>
   </div>
-  <span *ngIf="errorMessage !== ''&& title === ''" class="error-message">{{errorMessage}}</span>
-  <ul>
-    <li *ngFor="let task of filteredTaskByStatus?.tasks">
-      <input type="checkbox" [checked]="task.completed" (click)="toggleTaskCompleted(task)"/>
-      <span [class.completed]="task.completed">
-        {{task.title}}
-      </span>
-      <button (click)="deleteTask(task)">x</button>
-    </li>
-  </ul>
-  <button (click)="filterAll()">all</button>
-  <button (click)="filterActive()">active</button>
-  <button (click)="filterCompleted()">completed</button>
-</div>
-
+  <div>
+    <mat-form-field>
+      <mat-label [class.error]="isEmptyTitle">{{label}}</mat-label>
+      <input matInput [(ngModel)]="title">
+    </mat-form-field>
+    <button mat-icon-button color="primary" (click)="addTask(title.trim())">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <mat-card-content class="content">
+    <div *ngFor="let task of filteredTaskByStatus?.tasks" class="content-task">
+        <mat-checkbox [checked]="task.completed" color="primary" (click)="toggleTaskCompleted(task)"></mat-checkbox>
+        <span [class.completed]="task.completed">
+            {{task.title}}
+          </span>
+      <button (click)="deleteTask(task)" mat-icon-button color="primary">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button (click)="filterAll()">all</button>
+    <button mat-raised-button color="accent" (click)="filterActive()">active</button>
+    <button mat-raised-button color="primary" (click)="filterCompleted()">completed</button>
+  </mat-card-actions>
+</mat-card>
 

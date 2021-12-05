@@ -1,7 +1,3 @@
-.todolist-container {
-  margin: 10px;
-}
-
 h5 {
   display: inline-block;
 }
@@ -12,6 +8,29 @@ h5 {
   opacity: 0.5;
 }
 
-.error-message {
+.card {
+  width: 300px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.error {
   color: red;
+}
+
+.content {
+  height: 140px;
+  overflow-y: auto;
+}
+
+.content-task, .header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h4 {
+  overflow: hidden;
 }

@@ -1,6 +1,18 @@
-<input type="text" placeholder="название задачи" [(ngModel)]="title">
-<button (click)="addTodolist()">+</button>
-<div class="container">
+<mat-toolbar color="primary">
+  <span>TodoList application</span>
+</mat-toolbar>
+
+<div class="input-todo">
+  <mat-form-field>
+    <mat-label [class.error]="isEmptyTitle">{{label}}</mat-label>
+    <input type="text" matInput [(ngModel)]="title">
+  </mat-form-field>
+  <button (click)="addTodolist()" mat-mini-fab color="primary">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+
+<div class="todo">
   <div *ngFor="let todolist of todoLists">
     <app-todo-list [todoList]="todolist"
                    (addTaskEmit)="onAddTask($event)"
